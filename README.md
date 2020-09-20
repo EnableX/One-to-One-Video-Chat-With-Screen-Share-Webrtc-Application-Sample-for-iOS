@@ -179,6 +179,7 @@ To Start screen share follow these steps :-
  Here app group required to exchanges required data from app to extension or vice versa.
  ```       
 ![group1](./group1.PNG) 
+
 ![group2](./group2.PNG)
        
 ### Step 3 Set the strean ID of screen share owner, before start screen share to Ebanlex SDK
