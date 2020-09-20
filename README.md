@@ -171,15 +171,15 @@ To Start screen share follow these steps :-
     
 ```
                 
-![Figure 1.1](./Broadcast.PNG)  
+![Broadcast](./Broadcast.PNG)  
 
 ### Step 2 Add App Gorups
  ```
  Add app groups to your project traget and extension traget. 
  Here app group required to exchanges required data from app to extension or vice versa.
  ```       
-![Figure 1.2](./group1.PNG) 
-![Figure 1.3](./group2.PNG)
+![group1](./group1.PNG) 
+![group2](./group2.PNG)
        
 ### Step 3 Set the strean ID of screen share owner, before start screen share to Ebanlex SDK
 
