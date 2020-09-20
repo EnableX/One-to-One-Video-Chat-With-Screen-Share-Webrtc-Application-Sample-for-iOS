@@ -170,17 +170,16 @@ To Start screen share follow these steps :-
     Set the bundle ID for Broadcast traget Exm:- com.companyName.Appname.Broadcast.extension
     
 ```
-                
-![Broadcast](./Broadcast.PNG)  
+![Broadcast](./Broadcast.png)  
 
 ### Step 2 Add App Gorups
  ```
  Add app groups to your project traget and extension traget. 
  Here app group required to exchanges required data from app to extension or vice versa.
  ```       
-![group1](./group1.PNG) 
+![group1](./group1.png) 
 
-![group2](./group2.PNG)
+![group2](./group2.png)
        
 ### Step 3 Set the strean ID of screen share owner, before start screen share to Ebanlex SDK
 
