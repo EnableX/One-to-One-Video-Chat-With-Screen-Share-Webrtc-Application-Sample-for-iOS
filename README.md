@@ -181,7 +181,7 @@ To Start screen share follow these steps :-
 
 ![group2](./group2.png)
        
-### Step 3 Set the strean ID of screen share owner, before start screen share to Ebanlex SDK
+### Step 3 Set the stream ID of screen share owner, before start screen share to Enablex SDK
 
 ### In Objective- c
         NSUserDefaults *userDefault = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.enx.Videocall"];
@@ -195,7 +195,7 @@ To Start screen share follow these steps :-
             EnxUtilityManager.shareInstance()?.setAppGroupsName("group.com.enx.Videocall", withUserKey: "ClientID")
 
     
-### How to boradCast Screen :- Here in this expample we are useng RPSystemBroadcastPickerView
+### How to broadcast Screen :- Here in this example we are using RPSystemBroadcastPickerView
 ### In Objective- c
         RPSystemBroadcastPickerView *pickerView = [[RPSystemBroadcastPickerView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
         pickerView.translatesAutoresizingMaskIntoConstraints = false;
