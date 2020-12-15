@@ -121,7 +121,9 @@ class VCXConfrenceViewController: UIViewController {
                     
                     let localStreamInfo : NSDictionary = ["video" : self.param["video"]! ,"audio" : self.param["audio"]! ,"data" :self.param["chat"]! ,"name" :self.roomInfo.participantName!,"type" : "public","audio_only": false ,"maxVideoBW" : 120 ,"minVideoBW" : 300 , "videoSize" : videoSize]
                     
-                   let roomInfo : NSDictionary  = ["allow_reconnect" : true , "number_of_attempts" : 3, "timeout_interval" : 20,"activeviews" : "view"]
+                    let playerConfiguration : NSDictionary = ["avatar":true,"audiomute":true, "videomute":true,"bandwidht":true, "screenshot":true,"iconColor" :"#0000FF"]
+                    
+                   let roomInfo : NSDictionary  = ["allow_reconnect" : true , "number_of_attempts" : 3, "timeout_interval" : 20,"playerConfiguration":playerConfiguration,"activeviews" : "view"]
                     guard let steam = self.objectJoin.joinRoom(token, delegate: self, publishStreamInfo: (localStreamInfo as! [AnyHashable : Any]), roomInfo: (roomInfo as! [AnyHashable : Any]), advanceOptions: nil) else{
                         SVProgressHUD.dismiss()
                         return
@@ -378,15 +380,6 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
         room!.subscribe(stream!)
     }
     /*
-     This Delegate will notify to User if any person Romove from room
-     */
-    func room(_ room: EnxRoom?, didRemovedStream stream: EnxStream?) {
-        //To Do
-        if stream == nil{
-            subscriberNameLBL.isHidden = true
-        }
-    }
-    /*
      This Delegate will notify to User to subscribe other user stream
      */
     func room(_ room: EnxRoom?, didSubscribeStream stream: EnxStream?) {
@@ -593,30 +586,7 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     }
     
     //Mark- EnxStreamDelegate Delegate
-    /*
-        This Delegate will notify to current User If User will do Self Stop Video
-     */
-    func stream(_ stream: EnxStream?, didSelfMuteVideo data: [Any]?) {
-        //To Do
-    }
-    /*
-     This Delegate will notify to current User If User will do Self Start Video
-     */
-    func stream(_ stream: EnxStream?, didSelfUnmuteVideo data: [Any]?) {
-        //To Do
-    }
-    /*
-     This Delegate will notify to current User If User will do Self Mute Audio
-     */
-    func stream(_ stream: EnxStream?, didSelfMuteAudio data: [Any]?) {
-        //To Do
-    }
-    /*
-     This Delegate will notify to current User If User will do Self UnMute Audio
-     */
-    func stream(_ stream: EnxStream?, didSelfUnmuteAudio data: [Any]?) {
-        //To Do
-    }
+
     /*
      This Delegate will notify to current User If any user has stoped There Video or current user Video
      */

@@ -496,6 +496,11 @@ Event fired when a StreamId previously subscribed has been failed to unsubscribe
 
 - (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didStreamingNotification :(NSArray *_Nullable)data;
 
+#pragma mark- Room FaceX  Events
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didAcknowledgePingBackInRoom:(NSArray *_Nullable)data;
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didAcknowledgeStartClientUsageInRoom:(NSArray *_Nullable)data;
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didAcknowledgeStopClientUsageInRoom:(NSArray *_Nullable)data;
+
 @end
 
 /**
@@ -632,5 +637,11 @@ signalingChannelDelegate:(id<EnxSignalingChannelDelegate>_Nullable)delegate;
 -(void)signalingStartStreaming:(NSDictionary *)streamingConfig;
 -(void)signalingStopStreaming:(NSDictionary *)streamingConfig;
 
+//FaceX APIs
+-(void)pingBack;
+-(void)startClientUsage:(NSDictionary* _Nonnull)data;
+-(void)stopClientUsage:(NSDictionary* _Nonnull)data;
 
+#pragma mark- ScreenShare
+- (void)connectScreenShare;
 @end

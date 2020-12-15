@@ -83,13 +83,6 @@
  Paricipant delegate
 
  */
-- (void)stream:(EnxStream *_Nullable)stream didSelfMuteVideo:(NSArray *_Nullable)data __attribute__((deprecated("This API is depricated.Use didRemoteStreamVideoUnMute: in EnxStream")));
-
-/**
-* User will get notify If other participants will do self mute video.
-@param stream Instance of the stream where event happen.
-@param data  mute video info on a stream.
-*/
 - (void)stream:(EnxStream *_Nullable)stream didRemoteStreamVideoMute:(NSArray *_Nullable)data;
 /**
  Fired when a self unmute video alert participant received from server.
@@ -101,13 +94,6 @@
 
  }
  */
-- (void)stream:(EnxStream *_Nullable)stream didSelfUnmuteVideo:(NSArray *_Nullable)data __attribute__((deprecated("This API is depricated.Use didRemoteStreamVideoUnMute: in EnxStream")));
-
-/**
-* User will get notify If other participants will do self unmute.
-@param stream Instance of the stream where event happen.
-@param data  unmute video info on a stream.
-*/
 - (void)stream:(EnxStream *_Nullable)stream didRemoteStreamVideoUnMute:(NSArray *_Nullable)data;
 
 /**
@@ -118,12 +104,6 @@
  
  Paricipant delegate
 
- */
-- (void)stream:(EnxStream *_Nullable)stream didSelfMuteAudio:(NSArray *_Nullable)data __attribute__((deprecated("This API is depricated.Use didRemoteStreamAudioMute: in EnxStream")));
-/**
-* User will get notify If other participants will do self mute audio.
-@param stream Instance of the stream where event happen.
-@param data  mute audio info on a stream.
 */
 - (void)stream:(EnxStream *_Nullable)stream didRemoteStreamAudioMute:(NSArray *_Nullable)data;
 
@@ -136,13 +116,6 @@
  @param data self unmute audio info on a stream.
  
  Paricipant delegate
-
- */
-- (void)stream:(EnxStream *_Nullable)stream didSelfUnmuteAudio:(NSArray *_Nullable)data __attribute__((deprecated("This API is depricated.Use didRemoteStreamAudioUnMute: in EnxStream")));
-/**
-* User will get notify If other participants will do self unmute audio.
-@param stream Instance of the stream where event happen.
-@param data  unmute audio info on a stream.
 */
 - (void)stream:(EnxStream *_Nullable)stream didRemoteStreamAudioUnMute:(NSArray *_Nullable)data;
 /**
@@ -507,7 +480,7 @@ from host device with defaultVideoConstraints.
 -(void)setZoomFactor:(CGFloat)value;
 -(void)recordScreen;
 -(void)stopRecordingCaptcha;
--(void)updateConfiguration:(NSDictionary *)data;
+-(void)updateConfiguration:(NSDictionary *_Nonnull)data;
 
 //To enable/disable facial expression of stream. true to enable and false to disable
 -(void)enableFaceFeatures:(BOOL)value;
