@@ -31,7 +31,8 @@ typedef NS_ENUM(NSInteger, EnxOutBoundCallState) {
     Ringing,
     Connected,
     Failed,
-    Disconnected
+    Disconnected,
+    Timeout
 };
 ///-----------------------------------
 /// @name Protocols
@@ -404,18 +405,31 @@ typedef NS_ENUM(NSInteger, EnxOutBoundCallState) {
 - (void)didProcessFloorRequested:(NSArray *_Nullable)Data;
 
 /*
- This is an acknowledgment method for the handOverFloorRequest to the moderator.
+ This is an acknowledgment method for the inviteToFloor to the moderator.
  */
--(void)didHandOverFloorRequested:(NSArray *_Nullable)Data;
+-(void)didACKInviteToFloorRequested:(NSArray *_Nullable)Data;
+/*
+ This event method will notify to all moderator in the same session (including the owner of the event), that invitation received by participant
+ **/
+-(void)didInviteToFloorRequested:(NSArray *_Nullable)Data;
 /*
  This delegate method for Participant , How or she will receive handover floor access.
  */
--(void)didReceivedFloorAccess:(NSArray *_Nullable)Data;
+-(void)didInvitedForFloorAccess:(NSArray *_Nullable)Data;
 
 /*
- This is an acknowledgment method for the all  moderator (Accept owner of handover floor request) and participant which has received handover floor request .
+ This is an event method for the all  moderator including owner of the API and participant which has received handover floor request .
  */
--(void)didCancelledHandOverFloorRequest:(NSArray *_Nullable)Data;
+-(void)didCanceledFloorInvite:(NSArray *_Nullable)Data;
+
+/*
+ This is an event method for the all  moderator including owner of the API and participant which has received handover floor request .
+ */
+-(void)didRejectedInviteFloor:(NSArray *_Nullable)Data;
+/*
+ This is an event method for the all  moderator including owner of the API and invitee participant,  once invitee has accept the invite floor  .
+ */
+-(void)didAcceptedFloorInvite:(NSArray *_Nullable)Data;
 
 #pragma mark-  HardMute Delegate
 
@@ -992,6 +1006,14 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
  */
 - (void)room:(EnxRoom *_Nullable)room didDialStateEvents:(EnxOutBoundCallState)state;
 
+/**
+ Fired when outbond call started
+ @param room Instance of the room where event happen.
+ @param dtmfCollected information about DTMF number
+ @details This delegate method will called, when any of user will initiate for outbound call and end user will press any DTMF number
+ */
+- (void)room:(EnxRoom *_Nullable)room didDTMFCollected:(NSString*_Nullable)dtmfCollected;
+
 #pragma mark- Lock/Unlock Room Delegate
 
 /**
@@ -1250,7 +1272,41 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
  @param data  information of active speker.
  @details This delegate called for Talker notification subscribe/unsubscribeupdates.
  */
+
 -(void)room:(EnxRoom *_Nullable)room didTalkerNotification:(NSArray *_Nullable)data;
+
+/**
+ Fired to notify user for his/her subscriber bandwidth alart
+ @param room Instance of the room where event happen.
+ @param data  information about subscriber bandwidth.
+ @details This delegate notify to the user incase of subscriber bandwidth goes low
+ */
+
+-(void)room:(EnxRoom *_Nullable)room didRoomBandwidthAlert:(NSArray *_Nullable)data;
+
+
+#pragma mark - delegate for Add/Remove sportLight user
+/**
+ Fired when a Moderator request for add Spotlight user .
+ @param channel Instance of the room where event happen.
+ @param data Inform user for Spotlight  success/failure.
+ @details this is an acknowledgment method for add Spotlight events done by any modiatore.
+ */
+- (void)room:(EnxRoom *_Nullable)channel didAckAddSpotlightUsers:(NSArray *_Nullable)data;
+/**
+ Fired when a Moderator request for remove Spotlight user .
+ @param channel Instance of the room where event happen.
+ @param data Inform user for Spotlight  success/failure.
+ @details this is an acknowledgment method for remove Spotlight events done by any modiatore.
+ */
+- (void)room:(EnxRoom *_Nullable)channel didAckRemoveSpotlightUsers:(NSArray *_Nullable)data;
+/**
+ Fired when a any user has Spotlight by any moderatore .
+ @param channel Instance of the room where event happen.
+ @param data Inform user for pinged  user list.
+ @details this delegate method will update the list of Spotlight user list in same confrence.
+ */
+- (void)room:(EnxRoom *_Nullable)channel didUpdatedSpotlightUsers:(NSArray *_Nullable)data;
 
 @end
 @protocol EnxRoomFaceXDelegate <NSObject>
@@ -1560,9 +1616,9 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
   Delegate (Optional). If you need to handle the success or failure of the action, then pass a function name here to which you look to receive call back.
  
  Moderator delegate
- @see EnxRoomDelegate:didHandOverFloorRequested:data:
+ @see EnxRoomDelegate:didInviteToFloorRequested:data:
  */
--(void)handOverFloorRequest:(NSString* _Nonnull)clientId;
+-(void)inviteToFloor:(NSString* _Nonnull)clientId;
 
 /**
  This API is only available during Lecture Mode of a Session and for the participant. where moderator can handover the floor request to any random participent, Now its chooice of participent either he is accepting or deny
@@ -1574,7 +1630,7 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
  Moderator delegate
  @see EnxRoomDelegate:didProcessFloorRequested:data:
  */
--(void)acceptHandOverFloorRequest:(NSString* _Nonnull)clientId;
+-(void)acceptInviteFloorRequest:(NSString* _Nonnull)clientId;
 
 /**
  This API is only available during Lecture Mode of a Session and for the moderator. where moderator can handover the floor request to any random participent and he/she can cancle that request at any time before accept.
@@ -1586,7 +1642,20 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
  Moderator delegate
  @see EnxRoomDelegate:didProcessFloorRequested:data:
  */
--(void)cancelHandOverFloorRequest:(NSString* _Nonnull)clientId;
+-(void)cancelFloorInvite:(NSString* _Nonnull)clientId;
+
+/**
+ This API is only available during Lecture Mode of a Session and for the participant. where moderator can invite the floor request to any random participent, Now its chooice of participent either he is accepting or deny
+ 
+ @param clientId  It’s the Client ID for the participant to whom giving floor access.
+ 
+  Delegate (Optional). If you need to handle the success or failure of the action, then pass a function name here to which you look to receive call back.
+ 
+ Moderator delegate
+ @see EnxRoomDelegate:didProcessFloorRequested:data:
+ */
+
+-(void)rejectInviteFloor:(NSString* _Nonnull)clientId;
 
 
 #pragma mark- Hard Mute
@@ -1948,7 +2017,7 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
  Client endpoint can use this method to send video buffer after screen shared started.
  @param sampleBuffer it is a required property, can't be nil.
 */
--(void)sendVideoBuffer:(CMSampleBufferRef _Nonnull )sampleBuffer;
+-(void)sendVideoBuffer:(CVPixelBufferRef _Nonnull )sampleBuffer withTimeStamp:(int64_t)timeStampNs;
 /**
  Client endpoint can use this method to stop screen share, this method only work when screen shared all ready running.
 */
@@ -2047,6 +2116,22 @@ didFileUploadCancelled:(NSArray *_Nullable)data;
  */
 
 -(void)subscribeForTalkerNotification:(BOOL)enable;
+
+
+#pragma mark- add/remove spotlight
+/**
+ Client endpoint can use this method to add Spotlight for any of the available user in room , while pass their clientIDs
+ @param clientIds - this is list of clientID who going to be pinged
+ this is a required property , can't be nil.
+*/
+//pin user
+-(void)addSpotlightUsers:(NSArray *_Nonnull)clientIds;
+/**
+ Client endpoint can use this method to remove  Spotlight any of the added Spotlight user in room , while pass their clientIDs of pinned user
+ @param clientIds - this is list of pingged clientID who going to be unpinned
+ this is a required property , can't be nil.
+*/
+-(void)removeSpotlightUsers:(NSArray *_Nonnull)clientIds;
 
 @end
 

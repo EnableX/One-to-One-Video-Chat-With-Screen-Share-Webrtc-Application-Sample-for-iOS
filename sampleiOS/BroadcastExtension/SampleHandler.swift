@@ -15,6 +15,8 @@ class SampleHandler: RPBroadcastSampleHandler {
     override func broadcastStarted(withSetupInfo setupInfo: [String : NSObject]?) {
        // DispatchQueue.main.async {
             self.screensgareClass.joinRoom()
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.finishedBroadCast(_:)), name: NSNotification.Name(rawValue: "Disconnect"), object: nil)
         //}
         // User has requested to start the broadcast. Setup info from the UI extension can be supplied but optional. 
     }
@@ -53,6 +55,14 @@ class SampleHandler: RPBroadcastSampleHandler {
             // Handle other sample buffer types
             fatalError("Unknown type of sample buffer")
         }
+    }
+    @objc func finishedBroadCast(_ notification: Notification) {
+        
+        let userInfo = [NSLocalizedDescriptionKey : "Owner Disconnected",
+                            NSLocalizedRecoverySuggestionErrorKey : "Owner Disconnected",
+                            NSLocalizedFailureErrorKey : "Owner Disconnected"]
+            let error = NSError(domain: "RPBroadcastErrorDomain", code: 1, userInfo: userInfo)
+            finishBroadcastWithError(error)
     }
 }
 

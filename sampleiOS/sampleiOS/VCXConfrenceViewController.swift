@@ -39,7 +39,6 @@ class VCXConfrenceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.isIdleTimerDisabled = true
         localPlayerView.layer.cornerRadius = 8.0
         localPlayerView.layer.borderWidth = 2.0
         localPlayerView.layer.borderColor = UIColor.lightGray.cgColor
@@ -267,9 +266,10 @@ class VCXConfrenceViewController: UIViewController {
     private func broadCastScreen(){
         if #available(iOS 12.0, *) {
             
-            if(localStream.streamId != nil){
+            if(remoteRoom.clientId != nil){
                 let defau = UserDefaults(suiteName: "group.com.enx.Videocall")
-                defau?.set(localStream.streamId, forKey: "ClientID")
+                defau?.set(remoteRoom.clientId, forKey: "ClientID")
+                defau?.synchronize()
                 EnxUtilityManager.shareInstance()?.setAppGroupsName("group.com.enx.Videocall", withUserKey: "ClientID")
             }
             let broadCast = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -311,9 +311,7 @@ class VCXConfrenceViewController: UIViewController {
      Its method will exist from Room
      **/
     private func leaveRoom(){
-        UIApplication.shared.isIdleTimerDisabled = false
         remoteRoom?.disconnect()
-        //self.navigationController?.popViewController(animated: true)
     }
     
     /*

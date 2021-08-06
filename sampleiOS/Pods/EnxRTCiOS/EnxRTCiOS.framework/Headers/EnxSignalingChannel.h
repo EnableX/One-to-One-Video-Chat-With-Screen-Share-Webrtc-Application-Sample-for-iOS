@@ -744,19 +744,59 @@ Event fired when a StreamId previously subscribed has been failed to unsubscribe
 #pragma mark- Screen Share Room Delegate
 /**
  Event fired when a new stream id has been created and server is ready
- to start publishing it.
+ to start publishing it screen share.
  
  @param channel EnxSignalingChannel the channel that emit the message.
  @param streamId NSString id of the stream that will be published.
  */
 - (void)signalingChannel:(EnxSignalingChannel * _Nullable)channel didReceiveScreenShareStreamIdReadyToPublish:(NSString *_Nonnull)streamId;
 /**
- Event fired when a Canvas published stream is being unpublished.
+ Event fired when a screen share unpublished stream is being unpublished.
 
  @param channel EnxSignalingChannel the channel that emit the message.
  @param streamId NSString of the stream being unpublished
  */
 - (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didScreenShareUnpublishStreamWithId:(NSString *_Nonnull)streamId;
+
+/**
+ Event fired when a parement client disconnect , ongoing screen share confrence.
+
+ @param channel EnxSignalingChannel the channel that emit the message.
+ @param data NSArray of the parent client details
+ */
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didParentRoomDisconnected:(NSArray *_Nonnull)data;
+
+/**
+ Event fired when a Clied Connected  , ongoing confrence to shart screen share
+
+ @param channel EnxSignalingChannel the channel that emit the message.
+ @param data NSArray of the parent client details
+ */
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didChildRoomConnecteded:(NSArray *_Nonnull)data;
+
+/**
+ Event fired when a parement client disconnect , ongoing screen share confrence.
+
+ @param channel EnxSignalingChannel the channel that emit the message.
+ @param data NSArray of the parent client details
+ */
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didScreenShareDisconnected:(NSArray *_Nonnull)data;
+
+/**
+ Event fired when a Clied Connected  , ongoing confrence to shart screen share
+
+ @param channel EnxSignalingChannel the channel that emit the message.
+ @param data NSArray of the parent client details
+ */
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didScreenShareConnecteded:(NSArray *_Nonnull)data;
+
+/**
+ Event fired when a Clield client disconnect , ongoing screen share confrence.
+
+ @param channel EnxSignalingChannel the channel that emit the message.
+ @param data NSArray of the parent client details
+ */
+- (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didChildRoomDisconnected:(NSArray *_Nonnull)data;
 
 #pragma mark- Room Expire Events
 /**
@@ -964,7 +1004,6 @@ Event fired when a StreamId previously subscribed has been failed to unsubscribe
  @details this is the socket on listrener method for modeartor , this event will fair when any user knocking a room.
  */
 - (void)signalingChannel:(EnxSignalingChannel *_Nullable)channel didUserAwated:(NSArray *_Nonnull)data;
-
 
 @end
 
