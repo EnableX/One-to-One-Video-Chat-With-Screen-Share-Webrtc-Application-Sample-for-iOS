@@ -1,7 +1,7 @@
 PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
-  - EnxRTCiOS (1.9.7):
+  - EnxRTCiOS (2.0.0):
     - GoogleWebRTC (= 1.1.29400)
   - Fabric (1.10.2)
   - GoogleWebRTC (1.1.29400)
@@ -13,7 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - Crashlytics
-  - EnxRTCiOS
+  - EnxRTCiOS (= 2.0.0)
   - ReachabilitySwift
   - Socket.IO-Client-Swift (~> 15.0.0)
   - SVProgressHUD
@@ -31,7 +31,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
-  EnxRTCiOS: b938b865719768f11e6f794ca74a3804aef5e23c
+  EnxRTCiOS: 7d9fd28ad7264c341b76b629eebb45f8cd9dab86
   Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
   GoogleWebRTC: cfb83bc346435a17fe06bb05f04ad826b858a7fb
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
@@ -39,6 +39,6 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 6f372809fe5d286caa5f31f346f81b000b63c495
+PODFILE CHECKSUM: c30032a55fc55220296a1d98eda3eb2544eef88b
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
