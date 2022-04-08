@@ -1,22 +1,21 @@
 # 1-to-1 RTC: A Sample iOS App with EnableX iOS Toolkit
 
-The sample iOS App demonstrates the use of EnableX (https://www.enablex.io/cpaas/video-api) platform Server APIs and iOS Toolkit to build 1-to-1 RTC (Real Time Communication) Application. It allows developers to ramp up on app development by hosting on their own devices.
+The sample iOS App demonstrates the use of EnableX platform Server APIs (https://www.enablex.io/developer/video-api/server-api) and iOS Toolkit (https://www.enablex.io/developer/video-api/client-api/ios-toolkit/) to build 1-to-1 RTC (Real-Time Communication) Application. It allows developers to ramp up on app development by hosting on their own devices.
 
-This App creates a virtual Room on the fly hosted on the Enablex platform using REST calls and uses the Room credentials (i.e. Room Id) to connect to the virtual Room as a Moderator or Participant using a mobile client. The same Room credentials can be shared with others to join the same virtual Room to carry out a RTC (Real Time Communication) session.
+This App creates a virtual Room on the fly hosted on the Enablex platform using REST calls and uses the Room credentials (i.e. Room Id) to connect to the virtual Room as a Moderator or Participant using a mobile client. The same Room credentials can be shared with others to join the same virtual Room to carry out an RTC (Real-Time Communication) session.
 
 EnableX Developer Center: https://developer.enablex.io/
 
 
 ## 1. How to get started
 
-### 1.1 Pre-Requisites
+### 1.1 Prerequisites
 
 #### 1.1.1 App Id and App Key 
 
 * Register with EnableX [https://portal.enablex.io/cpaas/trial-sign-up/] 
-* Login to the EnableX Portal
-* Create your Application Key
-* Get your App ID and App Key delivered to your Email
+* Create your Application
+* Get your App ID and App Key delivered to your email
 
 
 
@@ -26,13 +25,13 @@ EnableX Developer Center: https://developer.enablex.io/
 
 #### 1.1.3 Test Application Server
 
-You need to setup an Application Server to provision Web Service API for your iOS Application to communicate enabling Video Session. 
+You need to set up an Application Server to provision Web Service API for your iOS Application to enable Video Session. 
 
-To help you to try our iOS Application quickly, without having to setup Applciation Server, this Application is shipped pre-configured to work in a "try" mode with EnableX hosted Application Server i.e. https://demo.enablex.io. 
+To help you to try our iOS Application quickly, without having to set up Application Server, this Application is shipped pre-configured to work in a "try" mode with EnableX hosted Application Server i.e. https://demo.enablex.io. 
 
-Our Application Server restricts a single Session Duation to 10 minutes, and allows 1 moderator and note more than 1 Participant in a Session.
+Our Application Server restricts a single Session Duations to 10 minutes, and allows 1 moderator and not more than 1 participant in a Session.
 
-Once you tried EnableX iOS Sample Application, you may need to setup your own  Application Server and verify your Application to work with your Application Server.  More on this, read Point 2 later in the Document.
+Once you tried EnableX iOS Sample Application, you may need to set up your own  Application Server and verify your Application to work with your Application Server.  Refer to point 2 for more details on this.
 
 #### 1.1.4 Configure iOS Client 
 
@@ -61,15 +60,15 @@ Once you tried EnableX iOS Sample Application, you may need to setup your own  A
 
 * Open the App in your Device. You get a form to enter Credentials i.e. Name & Room Id.
 * You need to create a Room by clicking the "Create Room" button.
-* Once the Room Id is created, you can use it and share with others to connect to the Virtual Room to carry out a RTC Session either as a Moderator or a Participant (Choose applicable Role in the Form).
+* Once the Room Id is created, you can use it and share with others to connect to the Virtual Room to carry out an RTC Session either as a Moderator or a Participant (Choose applicable Role in the Form).
 
-Note: Only one user with Moderator Role allowed to connect to a Virtual Room while trying with EnableX Hosted Service. Your Own Application Server may allow upto 5 Moderators.
+Note: Only one user with Moderator Role allowed to connect to a Virtual Room while trying with EnableX Hosted Service. Your Own Application Server can allow upto 5 Moderators.
  
-Note:- If you used any emulator/simulator your local stream will not create. It will create only on real device.
+Note:- In case of emulator/simulator your local stream will not create. It will create only on real device.
 
-## 2 Setup Your Own Application Server
+## 2. Set up Your Own Application Server
 
-You may need to setup your own Application Server after you tried the Sample Application with EnableX hosted Server. We have differnt variant of Appliciation Server Sample Code, pick one in your preferred language and follow instructions given in respective README.md file.
+You may need to setup your own Application Server after you tried the Sample Application with EnableX hosted Server. We have differnt variants of Appliciation Server Sample Code. Pick the one in your preferred language and follow instructions given in respective README.md file.
 
 *NodeJS: [https://github.com/EnableX/Video-Conferencing-Open-Source-Web-Application-Sample.git]
 *PHP: [https://github.com/EnableX/Group-Video-Call-Conferencing-Sample-Application-in-PHP]
@@ -77,35 +76,35 @@ You may need to setup your own Application Server after you tried the Sample App
 Note the following:
 
 * You need to use App ID and App Key to run this Service.
-* Your iOS Client End Point needs to connect to this Service to create Virtual Room and Create Token to join session.
-* Application Server is created using EnableX Server API, a Rest API Service helps in provisioning, session access and pos-session reporting.  
+* Your iOS Client End Point needs to connect to this Service to create Virtual Room and Create Token to join the session.
+* Application Server is created using EnableX Server API while Rest API Service helps in provisioning, session access and post-session reporting.  
 
 To know more about Server API, go to:
-https://developer.enablex.io/latest/server-api/
+https://www.enablex.io/developer/video-api/server-api
 
 
 
-## 3 iOS Toolkit
+## 3. iOS Toolkit
 
-This Sample Applcation uses EnableX iOS Toolkit to communicate with EnableX Servers to initiate and manage Real Time Communications. You might need to update your Application with latest version of EnableX iOS Toolkit time as and when a new release is avaialble.   
+This Sample Application uses EnableX iOS Toolkit to communicate with EnableX Servers to initiate and manage Real-Time Communications. Please update your Application with latest version of EnableX IOS Toolkit as and when a new release is available. 
 
-* Documentation: https://developer.enablex.io/latest/client-api/ios-toolkit/
-* Download Toolkit: https://developer.enablex.io/resources/downloads/#ios-toolkit
+* Documentation: https://www.enablex.io/developer/video-api/client-api/ios-toolkit/
+* Download Toolkit: https://www.enablex.io/developer/video-api/client-api/ios-toolkit/
 
-## 4 Application Walk-through
+## 4. Application Walk-through
 
 ### 4.1 Create Token
 
 We create a Token for a Room Id to get connected to EnableX Platform to connect to the Virtual Room to carry out a RTC Session.
 
 To create Token, we make use of Server API. Refer following documentation:
-https://developer.enablex.io/latest/server-api/rooms-route/#create-token
+https://www.enablex.io/developer/video-api/server-api/rooms-route/#create-token
 
 
 ### 4.2 Connect to a Room, Initiate & Publish Stream
 
 We use the Token to get connected to the Virtual Room. Once connected, we intiate local stream and publish into the room. Refer following documentation for this process:
-https://developer.enablex.io/latest/client-api/ios-toolkit/enxrtc/
+https://www.enablex.io/developer/video-api/client-api/ios-toolkit/room-connection/#connect-room
 
 
 ### 4.3 Play Stream
@@ -116,7 +115,7 @@ let streamView = EnxPlayerView(frame: CGRect)
 self.view.addSubview(streamView) 
 localStream.attachRenderer(streamView) 
   ```
-More on Player: https://developer.enablex.io/latest/client-api/ios-toolkit/basic-functions/#play-stream
+More on Player: https://www.enablex.io/developer/video-api/client-api/ios-toolkit/play-stream/
 
 ### 4.4 Handle Server Events
 
@@ -164,7 +163,7 @@ func didRoomDisconnect(_ response: [Any]?) {
     
 The screen sharing feature is a little bit tricky in iOS due to the strict screen capturing policies from Apple. 
 To Start screen share follow these steps :-
-### Step 1 Add Screen Share Trage
+#### Step 1 Add Screen Share Trage
 ``` 
     Go To -> Project -> File -> Traget -> Broadcast Upload Extension
     Set the bundle ID for Broadcast traget Exm:- com.companyName.Appname.Broadcast.extension
@@ -172,7 +171,7 @@ To Start screen share follow these steps :-
 ```
 ![Broadcast](./Broadcast.png)  
 
-### Step 2 Add App Gorups
+#### Step 2 Add App Gorups
  ```
  Add app groups to your project traget and extension traget. 
  Here app group required to exchanges required data from app to extension or vice versa.
@@ -181,22 +180,22 @@ To Start screen share follow these steps :-
 
 ![group2](./group2.png)
        
-### Step 3 Set the stream ID of screen share owner, before start screen share to Enablex SDK
+#### Step 3 Set the stream ID of screen share owner, before start screen share to Enablex SDK
 
-### In Objective- c
+#### In Objective- c
         NSUserDefaults *userDefault = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.enx.Videocall"];
             [userDefault setObject:_localStream.streamId forKey:@"ClientID"];
                 [userDefault synchronize];
                 [[EnxUtilityManager shareInstance] setAppGroupsName:@"group.com.enx.Videocall" withUserKey:@"ClientID"];
 
-### In Swift
+#### In Swift
             let defau = UserDefaults(suiteName: "group.com.enx.Videocall")
             defau?.set(localStream.streamId, forKey: "ClientID")
             EnxUtilityManager.shareInstance()?.setAppGroupsName("group.com.enx.Videocall", withUserKey: "ClientID")
 
     
-### How to broadcast Screen :- Here in this example we are using RPSystemBroadcastPickerView
-### In Objective- c
+#### How to broadcast Screen :- Here in this example we are using RPSystemBroadcastPickerView
+#### In Objective- c
         RPSystemBroadcastPickerView *pickerView = [[RPSystemBroadcastPickerView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
         pickerView.translatesAutoresizingMaskIntoConstraints = false;
         pickerView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
@@ -217,7 +216,7 @@ To Start screen share follow these steps :-
         [self.view bringSubviewToFront:pickerView];
         pickerView.center = self.view.center;
 
-### In Swift
+#### In Swift
             let broadCast = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             broadCast.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
             
@@ -236,9 +235,9 @@ To Start screen share follow these steps :-
             self.view.bringSubviewToFront(broadCast)
             broadCast.center = self.view.center
 
-### Handle screen share Dalegate methods
+#### Handle screen share Dalegate methods
         
-### Objective - c
+#### Objective - c
             // Strat screen share acknowledgment 
         -(void)room:(EnxRoom *)room didStartScreenShareACK:(NSArray * _Nullable)Data{
             // Owner of the start screen share will receive this delegate method
@@ -255,7 +254,7 @@ To Start screen share follow these steps :-
         -(void)room:(EnxRoom *)room didScreenShareStopped:(EnxStream *)stream{
            // Other participant in same room will receive delegate method for with stop screen share details.
         }
-### In Swift
+#### In Swift
     // Strat screen share acknowledgment 
         func room(_ room: EnxRoom?, didStartScreenShareACK data: [Any]?) {
             // Owner of the start screen share will receive this delegate method
@@ -274,7 +273,7 @@ To Start screen share follow these steps :-
         }
 ## 5 Demo
 
-EnableX provides hosted Vemo Application of different use-case for you to try out.
+EnableX provides hosted Demo Application Server of different use-case for you to try out.
 
 1. Try a quick Video Call: https://try.enablex.io
 2. Sign up for a free trial https://portal.enablex.io/cpaas/trial-sign-up/
