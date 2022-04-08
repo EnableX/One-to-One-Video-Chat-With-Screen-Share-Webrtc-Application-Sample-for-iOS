@@ -194,7 +194,7 @@ To Start screen share follow these steps :-
             EnxUtilityManager.shareInstance()?.setAppGroupsName("group.com.enx.Videocall", withUserKey: "ClientID")
 
     
-#### How to broadcast Screen :- Here in this example we are using RPSystemBroadcastPickerView
+#### Step 4 How to broadcast Screen :- Here in this example we are using RPSystemBroadcastPickerView
 #### In Objective- c
         RPSystemBroadcastPickerView *pickerView = [[RPSystemBroadcastPickerView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
         pickerView.translatesAutoresizingMaskIntoConstraints = false;
@@ -235,7 +235,7 @@ To Start screen share follow these steps :-
             self.view.bringSubviewToFront(broadCast)
             broadCast.center = self.view.center
 
-#### Handle screen share Dalegate methods
+#### Step 5 Handle screen share Dalegate methods
         
 #### Objective - c
             // Strat screen share acknowledgment 
@@ -271,7 +271,7 @@ To Start screen share follow these steps :-
         func room(_ room: EnxRoom?, didScreenShareStopped stream: EnxStream?) {
             // Other participant in same room will receive delegate method for with stop screen share details.
         }
-## 5 Demo
+## 5. Demo
 
 EnableX provides hosted Demo Application Server of different use-case for you to try out.
 
