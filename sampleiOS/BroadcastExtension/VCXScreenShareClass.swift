@@ -57,7 +57,7 @@ class VCXScreenShareClass: NSObject {
         })
     }
     public func joinRoom(){
-        EnxUtilityManager.shareInstance()?.setAppGroupsName("group.com.enx.Videocall", withUserKey: "ClientID")
+        EnxUtilityManager.shareInstance.setApp(groupsName: "group.com.enx.Videocall", withUserKey: "ClientID")
         let defau = UserDefaults(suiteName: "group.com.enx.Videocall")
         roomId = (defau?.object(forKey: "RoomId") as! String)
         self.createToken()
@@ -142,6 +142,14 @@ class VCXScreenShareClass: NSObject {
     }
 }
 extension VCXScreenShareClass : EnxBroadCastDelegate {
+    func failedToDisconnect(withBroadCast data: [Any]) {
+        //todo
+    }
+    
+    func didRequestedExitRoom(_ data: [Any]?) {
+        //To Do
+    }
+    
     func broadCastConnected() {
         guard remoteRoom != nil else {
             return

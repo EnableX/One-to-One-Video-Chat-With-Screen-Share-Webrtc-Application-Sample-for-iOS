@@ -44,11 +44,6 @@ class VCXConfrenceViewController: UIViewController {
         localPlayerView.layer.borderColor = UIColor.lightGray.cgColor
         localPlayerView.layer.masksToBounds = true
         optionsView.layer.cornerRadius = 8.0
-        //optionViewButtonlayout.constant = -100
-//        let tapGuester = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
-//        tapGuester.numberOfTapsRequired = 1
-//        self.view.addGestureRecognizer(tapGuester)
-    
         // Adding Pan Gesture for localPlayerView
         let localViewGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didChangePosition))
         localPlayerView.addGestureRecognizer(localViewGestureRecognizer)
@@ -117,14 +112,14 @@ class VCXConfrenceViewController: UIViewController {
               //  Success Response from server
                 if let token = tokenInfo.token {
                     
-                    let videoSize : NSDictionary =  ["minWidth" : 480 , "minHeight" : 320 , "maxWidth" : 640, "maxHeight" :480]
+                    let videoSize : [String : Any] =  ["minWidth" : 480 , "minHeight" : 320 , "maxWidth" : 640, "maxHeight" :480]
                     
-                    let localStreamInfo : NSDictionary = ["video" : self.param["video"]! ,"audio" : self.param["audio"]! ,"data" :self.param["chat"]! ,"name" :self.roomInfo.participantName!,"type" : "public","audio_only": false ,"maxVideoBW" : 120 ,"minVideoBW" : 300 , "videoSize" : videoSize]
+                    let localStreamInfo : [String : Any] = ["video" : self.param["video"]! ,"audio" : self.param["audio"]! ,"data" :self.param["chat"]! ,"name" :self.roomInfo.participantName!,"type" : "public","audio_only": false ,"maxVideoBW" : 120 ,"minVideoBW" : 300 , "videoSize" : videoSize]
                     
-                    let playerConfiguration : NSDictionary = ["avatar":true,"audiomute":true, "videomute":true,"bandwidht":true, "screenshot":true,"iconColor":"#0000FF","iconWidth":25,"iconHeight":25]
+                    let playerConfiguration : [String : Any] = ["avatar":true,"audiomute":true, "videomute":true,"bandwidht":true, "screenshot":true,"iconColor":"#0000FF","iconWidth":25,"iconHeight":25]
                     
-                   let roomInfo : NSDictionary  = ["allow_reconnect" : true , "number_of_attempts" : 3, "timeout_interval" : 20,"playerConfiguration":playerConfiguration,"activeviews" : "view"]
-                    guard let steam = self.objectJoin.joinRoom(token, delegate: self, publishStreamInfo: (localStreamInfo as! [AnyHashable : Any]), roomInfo: (roomInfo as! [AnyHashable : Any]), advanceOptions: nil) else{
+                   let roomInfo : [String : Any]  = ["allow_reconnect" : true , "number_of_attempts" : 3, "timeout_interval" : 20,"playerConfiguration":playerConfiguration,"activeviews" : "view"]
+                    guard let steam = self.objectJoin.joinRoom(token, delegate: self, publishStreamInfo: localStreamInfo , roomInfo: roomInfo , advanceOptions: nil) else{
                         SVProgressHUD.dismiss()
                         return
                     }
@@ -221,7 +216,7 @@ class VCXConfrenceViewController: UIViewController {
      Its method will change Camera Angle and change Button Property.
      **/
     @IBAction func changeCameraAngle(_ sender: UIButton) {
-        localStream.switchCamera()
+        _ = localStream.switchCamera()
     }
     @IBAction func startChatEvent(_ sender: UIButton) {
     }
@@ -270,7 +265,7 @@ class VCXConfrenceViewController: UIViewController {
                 let defau = UserDefaults(suiteName: "group.com.enx.Videocall")
                 defau?.set(remoteRoom.clientId, forKey: "ClientID")
                 defau?.synchronize()
-                EnxUtilityManager.shareInstance()?.setAppGroupsName("group.com.enx.Videocall", withUserKey: "ClientID")
+                EnxUtilityManager.shareInstance.setApp(groupsName: "group.com.enx.Videocall", withUserKey: "ClientID")
             }
             let broadCast = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             broadCast.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin]
@@ -334,17 +329,13 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     /*
      This Delegate will notify to User Once he got succes full join Room
      */
-    func room(_ room: EnxRoom?, didConnect roomMetadata: [AnyHashable : Any]?){
+    func room(_ room: EnxRoom?, didConnect roomMetadata: [String : Any]?){
         remoteRoom = room
         remoteRoom.publish(localStream)
         if remoteRoom.isRoomActiveTalker{
             if let name = remoteRoom.whoami()!["name"] {
                 publisherNameLBL.text = (name as! String)
                 localPlayerView.bringSubviewToFront(publisherNameLBL)
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    self.localPlayerView.frame = UIScreen.main.bounds
-//                })
-                
             }
             localStream.attachRenderer(localPlayerView)
             localPlayerView.contentMode = UIView.ContentMode.scaleAspectFill
@@ -379,7 +370,7 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
      This Delegate will notify to User if any new person added to room
      */
     func room(_ room: EnxRoom?, didAddedStream stream: EnxStream?) {
-        room!.subscribe(stream!)
+        _ = room!.subscribe(stream!)
     }
     /*
      This Delegate will notify to User to subscribe other user stream
@@ -414,7 +405,7 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     /*
      This Delegate will notify to end User if Room connecton status changed
      */
-    func room(_ room: EnxRoom?, didChange status: EnxRoomStatus) {
+    func room(_ room: EnxRoom?, didChangeStatus status: EnxRoomStatus) {
         //To Do
     }
     /*
@@ -474,28 +465,28 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     /*
      This Delegate will notify to User to get updated attributes of particular Stream
      */
-    func room(_ room: EnxRoom?, didUpdateAttributesOf stream: EnxStream?) {
+    func room(_ room: EnxRoom?, didUpdateAttributesOfStream stream: EnxStream?) {
         //To Do
     }
     
     /*
      This Delegate will notify when internet connection lost.
      */
-    func room(_ room: EnxRoom, didConnectionLost data: [Any]) {
+    func room(_ room: EnxRoom?, didConnectionLost data: [Any]?) {
       
     }
     
     /*
      This Delegate will notify on connection interuption example switching from Wifi to 4g.
      */
-    func room(_ room: EnxRoom, didConnectionInterrupted data: [Any]) {
+    func room(_ room: EnxRoom?, didConnectionInterrupted data: [Any]?) {
       
     }
     
     /*
      This Delegate will notify reconnect success.
      */
-    func room(_ room: EnxRoom, didUserReconnectSuccess data: [AnyHashable : Any]) {
+    func room(_ room: EnxRoom?, didUserReconnectSuccess data: [String : Any]?) {
        
     }
     
@@ -504,12 +495,6 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
      */
     func room(_ room:EnxRoom?, didReconnect reason: String?){
         
-    }
-    /*
-     This Delegate will notify to User with active talker list
-     */
-    func room(_ room: EnxRoom?, didActiveTalkerList Data: [Any]?) {
-        // Handle individual stream and there player
     }
     func room(_ room: EnxRoom?, didActiveTalkerView view: UIView?) {
         activeTalkerView = view!
@@ -562,21 +547,21 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     /*
      This Delegate will Acknowledge setting advance options.
      */
-    func room(_ room: EnxRoom?, didAcknowledgementAdvanceOption data: [AnyHashable : Any]?) {
+    func room(_ room: EnxRoom?, didAcknowledgementAdvanceOption data: [String : Any]?) {
         
     }
     
     /*
      This Delegate will notify battery updates.
      */
-    func room(_ room: EnxRoom?, didBatteryUpdates data: [AnyHashable : Any]?) {
+    func room(_ room: EnxRoom?, didBatteryUpdates data: [String : Any]?) {
         
     }
     
     /*
      This Delegate will notify change on stream aspect ratio.
      */
-    func room(_ room: EnxRoom?, didAspectRatioUpdates data: [Any]?) {
+    func room(_ room : EnxRoom?, didAspectRatioUpdates data : [String : Any]?) {
         
     }
     
@@ -592,13 +577,13 @@ extension VCXConfrenceViewController : EnxRoomDelegate, EnxStreamDelegate {
     /*
      This Delegate will notify to current User If any user has stoped There Video or current user Video
      */
-    func didVideoEvents(_ data: [AnyHashable : Any]?) {
+    func didVideoEvents(_ data: [String : Any]?) {
         //To Do
     }
     /*
      This Delegate will notify to current User If any user has stoped There Audio or current user Video
      */
-    func didAudioEvents(_ data: [AnyHashable : Any]?) {
+    func didAudioEvents(_ data: [String : Any]?) {
         //To Do
     }
     func room(_ room: EnxRoom?, didStartScreenShareACK data: [Any]?) {
