@@ -6,12 +6,12 @@ target 'sampleiOS' do
   use_frameworks!
 #platform :ios, '11.2'
   # Pods for sampleiOS
-        pod 'EnxRTCiOS'
+        
         pod 'Socket.IO-Client-Swift', '~> 16.1.0'
         pod 'SVProgressHUD'
         pod 'ReachabilitySwift'
         pod 'Crashlytics'
-       # pod 'MMWormhole', '~> 2.0.0'
+
        
 
   target 'sampleiOSTests' do
@@ -30,11 +30,12 @@ target 'sampleiOS' do
      #  project 'sampleiOS.xcodeproj'
   end
   post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
-	config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        end
       end
     end
-  end
+  
 end
